@@ -1,7 +1,7 @@
 import { AutoComplete, Input } from "antd";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { PlaceDetailsAction } from "../Action/PlaceDetailsActions";
 import DetailsPage from "./DetailsPage";
 
 const PlaceLocator = () => {
@@ -10,15 +10,9 @@ const PlaceLocator = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get("https://countriesnow.space/api/v0.1/countries/positions")
-      .then((response) => {
-        if (response && response.data) {
-          setOptions(
-            response.data?.data.map((d) => ({ ...d, value: d.name })) || []
-          );
-        }
-      });
+    PlaceDetailsAction.getCountriesList((countries) => {
+      setOptions(countries);
+    });
   }, []);
 
   const onSelect = (value, option) => {

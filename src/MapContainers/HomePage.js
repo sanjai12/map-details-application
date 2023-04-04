@@ -1,27 +1,31 @@
 import React, { useState } from "react";
 import { Layout, Switch, Breadcrumb } from "antd";
 import { PlaceDetailsAction } from "../Action/PlaceDetailsActions";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import DetailsPage from "./DetailsPage";
 import SummaryPage from "./SummaryPage";
 import PlaceLocator from "./PlaceLocator";
+import HeaderComponent from "../Components/HeaderComponent";
+import classes from "./HomePage.module.css";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
-const HomePage = (props) => {
+const HomePage = () => {
   const [breadcrum, setBreadcrum] = useState(["Home"]);
   const [detailsPage, setDetailPage] = useState(false);
   const [mapMode, setMapMode] = useState(false);
   const dispatch = useDispatch();
 
   const getPlaceDetails = (jsonValues) => {
-    props.getPlaceDetails(jsonValues, (response) => {
-      if (response) {
-        setDetailPage(true);
-        const list = [...breadcrum, ...["Place Details"]];
-        setBreadcrum(list);
-      }
-    });
+    dispatch(
+      PlaceDetailsAction.getPlaceDetails(jsonValues, (response) => {
+        if (response) {
+          setDetailPage(true);
+          const list = [...breadcrum, ...["Place Details"]];
+          setBreadcrum(list);
+        }
+      })
+    );
   };
 
   const backHandler = () => {
@@ -43,11 +47,7 @@ const HomePage = (props) => {
 
   return (
     <Layout className="layout">
-      <Header>
-        <center>
-          <h2 style={{ color: "#fff" }}>Map Details Application</h2>
-        </center>
-      </Header>
+      <HeaderComponent />
       <Content style={{ padding: "0 50px" }}>
         <Breadcrumb style={{ margin: "16px 0" }}>
           {breadcrum.map((data) => (
@@ -61,22 +61,8 @@ const HomePage = (props) => {
           ))}
         </Breadcrumb>
         <div className="site-layout-content">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              paddingBottom: 15,
-            }}
-          >
-            <label
-              style={{
-                marginTop: "-3px",
-                paddingRight: 5,
-                fontSize: 16,
-                fontWeight: 500,
-              }}
-            >
+          <div className={classes.switchStyle}>
+            <label className={classes.labelStyle}>
               Switch to Detailed Map View{" "}
             </label>
             <Switch checked={mapMode} onChange={switchHandler} />
@@ -97,11 +83,4 @@ const HomePage = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getPlaceDetails: (values, callback) =>
-      dispatch(PlaceDetailsAction.getPlaceDetails(values, callback)),
-  };
-};
-
-export default connect(null, mapDispatchToProps)(HomePage);
+export default HomePage;

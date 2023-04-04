@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const PlaceDetailsAction = {
   getPlaceDetails,
+  getCountriesList
 };
 
 function getPlaceDetails(values, callback) {
@@ -19,4 +20,19 @@ function getPlaceDetails(values, callback) {
         message.error("No Records Found!");
       });
   };
+}
+
+function getCountriesList(callback) {
+  axios
+    .get("https://countriesnow.space/api/v0.1/countries/positions")
+    .then((response) => {
+      if (response && response.data) {
+        callback(
+          response.data?.data.map((d) => ({ ...d, value: d.name })) || []
+        );
+      }
+    })
+    .catch((err) => {
+      message.error("No Records Found!");
+    });
 }

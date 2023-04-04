@@ -1,9 +1,9 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Empty, PageHeader } from "antd";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 const DetailsPage = (props) => {
-  const details = props.placeDetails;
+  const details = useSelector((state) => state.DetailReducer.details);
 
   return (
     <div>
@@ -14,7 +14,7 @@ const DetailsPage = (props) => {
         <MapContainer
           style={{ height: 400, width: "100%" }}
           center={[details.places[0].latitude, details.places[0].longitude]}
-          zoom={5}
+          zoom={details.places?.length > 1 ? 10 : 5}
           scrollWheelZoom={false}
         >
           <TileLayer
@@ -51,10 +51,4 @@ const DetailsPage = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    placeDetails: state.DetailReducer.details,
-  };
-};
-
-export default connect(mapStateToProps, null)(DetailsPage);
+export default DetailsPage;

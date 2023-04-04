@@ -1,16 +1,9 @@
 import React from "react";
 import { Form, Button, Select, Card } from "antd";
 
+import { countryList, stateList, placeList } from "../utils/list";
+
 const { Option } = Select;
-
-const countryList = [{ label: "US", value: "us" }];
-
-const stateList = [
-  { label: "Georgia", value: "GA" },
-  { label: "Massachusetts", value: "MA" },
-];
-
-const placeList = ["Smyrna", "Belmont"];
 
 const SummaryPage = (props) => {
   const onFinish = (values) => {
