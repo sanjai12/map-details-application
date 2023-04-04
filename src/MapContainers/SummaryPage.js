@@ -3,20 +3,14 @@ import { Form, Button, Select, Card } from "antd";
 
 const { Option } = Select;
 
-const countryList = [
-  { label: "US", value: "us" },
-  { label: "CA", value: "ca" }
-];
+const countryList = [{ label: "US", value: "us" }];
 
 const stateList = [
   { label: "Georgia", value: "GA" },
   { label: "Massachusetts", value: "MA" },
-  { label: "Newyork", value: "NY" },
-  { label: "Losangeles", value: "LA" },
-  { label: "Test", value: "TS" }
 ];
 
-const placeList = ["Belmont", "Smyrna", "test"];
+const placeList = ["Smyrna", "Belmont"];
 
 const SummaryPage = (props) => {
   const onFinish = (values) => {
@@ -28,10 +22,10 @@ const SummaryPage = (props) => {
       <Form
         name="basic"
         labelCol={{
-          span: 8
+          span: 8,
         }}
         wrapperCol={{
-          span: 16
+          span: 16,
         }}
         onFinish={onFinish}
       >
@@ -41,8 +35,8 @@ const SummaryPage = (props) => {
           rules={[
             {
               required: true,
-              message: "Please select country!"
-            }
+              message: "Please select country!",
+            },
           ]}
         >
           <Select
@@ -69,8 +63,8 @@ const SummaryPage = (props) => {
           rules={[
             {
               required: true,
-              message: "Please select state!"
-            }
+              message: "Please select state!",
+            },
           ]}
         >
           <Select
@@ -97,8 +91,8 @@ const SummaryPage = (props) => {
           rules={[
             {
               required: true,
-              message: "Please select place!"
-            }
+              message: "Please select place!",
+            },
           ]}
         >
           <Select
@@ -122,7 +116,7 @@ const SummaryPage = (props) => {
         <Form.Item
           wrapperCol={{
             offset: 8,
-            span: 16
+            span: 16,
           }}
         >
           <Button type="primary" htmlType="submit">

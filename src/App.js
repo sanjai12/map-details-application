@@ -1,8 +1,8 @@
 import "./styles.css";
 import { Provider } from "react-redux";
-import storeConfig from "./store";
+import storeConfig from "./utils/store";
 import "antd/dist/antd.css";
-import HomePage from "./HomePage";
+import HomePage from "./MapContainers/HomePage";
 
 const { store } = storeConfig();
 

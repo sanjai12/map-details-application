@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Layout, Breadcrumb } from "antd";
-import { PlaceDetailsAction } from "./Action/PlaceDetailsAction";
+import { Layout, Menu, Breadcrumb } from "antd";
+import { PlaceDetailsAction } from "../Action/PlaceDetailsActions";
 import { connect } from "react-redux";
 import DetailsPage from "./DetailsPage";
 import SummaryPage from "./SummaryPage";
+import PlaceLocator from "./PlaceLocator";
 
 const { Header, Content } = Layout;
 
@@ -36,7 +37,7 @@ const HomePage = (props) => {
     <Layout className="layout">
       <Header>
         <center>
-          <h2 style={{ color: "#fff" }}>Map Details App</h2>
+          <h2 style={{ color: "#fff" }}>Map Details Application</h2>
         </center>
       </Header>
       <Content style={{ padding: "0 50px" }}>
@@ -57,6 +58,7 @@ const HomePage = (props) => {
           ) : (
             <DetailsPage backHandler={backHandler} />
           )}
+          {/* <PlaceLocator /> */}
         </div>
       </Content>
     </Layout>

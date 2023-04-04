@@ -7,12 +7,14 @@ const DetailsPage = (props) => {
 
   return (
     <div>
-      <PageHeader onBack={props.backHandler} title="Back" />
+      {props.backHandler && (
+        <PageHeader onBack={props.backHandler} title="Back" />
+      )}
       {details.places && details.places.length ? (
         <MapContainer
           style={{ height: 400, width: "100%" }}
           center={[details.places[0].latitude, details.places[0].longitude]}
-          zoom={8}
+          zoom={5}
           scrollWheelZoom={false}
         >
           <TileLayer
@@ -23,10 +25,18 @@ const DetailsPage = (props) => {
             <Marker position={[data.latitude, data.longitude]}>
               <Popup>
                 <div>
-                  <div>{`Postal Code : ${data["post code"]}`}</div>
-                  <div>{`State : ${details["state"]}`}</div>
-                  <div>{`Country : ${details["country"]}`}</div>
-                  <div>{`place : ${data["place name"]}`}</div>
+                  {data["post code"] && (
+                    <div>{`Postal Code : ${data["post code"]}`}</div>
+                  )}
+                  {details["state"] && (
+                    <div>{`State : ${details["state"]}`}</div>
+                  )}
+                  <div>{`Country : ${
+                    details["country"] || data["country"]
+                  }`}</div>
+                  {data["place name"] && (
+                    <div>{`place : ${data["place name"]}`}</div>
+                  )}
                   <div>{`latitude : ${data["latitude"]}`}</div>
                   <div>{`longitude : ${data["longitude"]}`}</div>
                 </div>
