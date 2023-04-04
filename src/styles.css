@@ -2,3 +2,26 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.site-layout-content {
+  min-height: 60vh;
+  padding: 24px;
+  background: #fff;
+}
+
+.ant-layout.layout {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.ant-card-head-title,
+.ant-page-header-heading-title {
+  color: darkgreen;
+  font-size: 20px;
+}

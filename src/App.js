@@ -1,10 +1,15 @@
 import "./styles.css";
+import { Provider } from "react-redux";
+import storeConfig from "./store";
+import "antd/dist/antd.css";
+import HomePage from "./HomePage";
+
+const { store } = storeConfig();
 
 export default function App() {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <Provider store={store}>
+      <HomePage />
+    </Provider>
   );
 }
