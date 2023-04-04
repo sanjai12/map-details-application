@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Switch, Breadcrumb } from "antd";
 import { PlaceDetailsAction } from "../Action/PlaceDetailsActions";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import DetailsPage from "./DetailsPage";
 import SummaryPage from "./SummaryPage";
 import PlaceLocator from "./PlaceLocator";
@@ -11,6 +11,8 @@ const { Header, Content } = Layout;
 const HomePage = (props) => {
   const [breadcrum, setBreadcrum] = useState(["Home"]);
   const [detailsPage, setDetailPage] = useState(false);
+  const [mapMode, setMapMode] = useState(false);
+  const dispatch = useDispatch();
 
   const getPlaceDetails = (jsonValues) => {
     props.getPlaceDetails(jsonValues, (response) => {
@@ -33,6 +35,12 @@ const HomePage = (props) => {
     }
   };
 
+  const switchHandler = (value) => {
+    dispatch({ type: "CLEAR_MAP_DETAILS" });
+    setDetailPage(false);
+    setMapMode(value);
+  };
+
   return (
     <Layout className="layout">
       <Header>
@@ -53,12 +61,36 @@ const HomePage = (props) => {
           ))}
         </Breadcrumb>
         <div className="site-layout-content">
-          {!detailsPage ? (
-            <SummaryPage searchMap={getPlaceDetails} />
-          ) : (
-            <DetailsPage backHandler={backHandler} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              paddingBottom: 15,
+            }}
+          >
+            <label
+              style={{
+                marginTop: "-3px",
+                paddingRight: 5,
+                fontSize: 16,
+                fontWeight: 500,
+              }}
+            >
+              Switch to Detailed Map View{" "}
+            </label>
+            <Switch checked={mapMode} onChange={switchHandler} />
+          </div>
+          {mapMode && (
+            <React.Fragment>
+              {!detailsPage ? (
+                <SummaryPage searchMap={getPlaceDetails} />
+              ) : (
+                <DetailsPage backHandler={backHandler} />
+              )}
+            </React.Fragment>
           )}
-          {/* <PlaceLocator /> */}
+          {!mapMode && <PlaceLocator />}
         </div>
       </Content>
     </Layout>

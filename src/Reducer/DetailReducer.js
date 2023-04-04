@@ -10,6 +10,12 @@ const DetailReducer = (state = initialState, action) => {
         details: action.payload,
       };
 
+    case "CLEAR_MAP_DETAILS":
+      return {
+        ...state,
+        details: {},
+      };
+
     default:
       return state;
   }
