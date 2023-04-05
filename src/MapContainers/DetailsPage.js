@@ -15,7 +15,7 @@ const DetailsPage = (props) => {
           style={{ height: 400, width: "100%" }}
           center={[details.places[0].latitude, details.places[0].longitude]}
           zoom={details.places?.length > 1 ? 10 : 5}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
         >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
